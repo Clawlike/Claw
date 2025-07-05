@@ -2,122 +2,170 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dreamscape</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Clawlike</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        body {
-            min-height: 100vh;
-            background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
-            font-family: Arial, sans-serif;
-            color: white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 40px 20px;
-        }
+    body {
+      height: 100vh;
+      background: linear-gradient(135deg, #0a0a0a, #141414, #1a1a1a, #2a1b3d);
+      font-family: Arial, sans-serif;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      text-align: center;
+      position: relative;
+      cursor: default;
+    }
 
-        header {
-            width: 100%;
-            max-width: 900px;
-            text-align: left;
-            margin-bottom: 40px;
-        }
+    .gradient {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(128, 0, 255, 0.3), transparent 70%);
+      pointer-events: none;
+      filter: blur(40px) contrast(130%);
+      transition: transform 0.1s linear;
+      z-index: 0;
+    }
 
-        .logo {
-            font-size: 2rem;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
+    .logo {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-size: 1.5rem;
+      font-weight: bold;
+      z-index: 2;
+    }
 
-        .tagline {
-            font-size: 1.2rem;
-            color: #c084fc;
-        }
+    .quote {
+      font-size: 3rem;
+      max-width: 80%;
+      margin-bottom: 30px;
+      transition: transform 0.3s ease, color 0.3s ease;
+      cursor: pointer;
+      z-index: 2;
+    }
 
-        main {
-            width: 100%;
-            max-width: 900px;
-        }
+    .quote:hover {
+      transform: scale(1.1);
+      color: #c084fc;
+    }
 
-        section {
-            margin-bottom: 30px;
-        }
+    .link-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 10px 15px;
+      border-radius: 8px;
+      transition: background 0.3s ease;
+      justify-content: center;
+      z-index: 2;
+    }
 
-        h2 {
-            margin-bottom: 10px;
-            font-size: 1.5rem;
-            border-bottom: 1px solid #333;
-            padding-bottom: 5px;
-        }
+    .link-box:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
 
-        p {
-            margin-bottom: 10px;
-            line-height: 1.6;
-            font-size: 1rem;
-            opacity: 0.9;
-        }
+    .link-box a {
+      color: white;
+      text-decoration: none;
+      font-size: 1rem;
+    }
 
-        footer {
-            margin-top: auto;
-            text-align: center;
-            font-size: 0.9rem;
-            opacity: 0.7;
-        }
+    .link-box svg {
+      width: 20px;
+      height: 20px;
+      fill: white;
+    }
 
-        a {
-            color: #c084fc;
-            text-decoration: none;
-        }
+    .social-links {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      display: flex;
+      gap: 15px;
+      z-index: 2;
+    }
 
-        a:hover {
-            text-decoration: underline;
-        }
-    </style>
+    .social-links a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+      transition: background 0.3s ease;
+    }
+
+    .social-links a:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .social-links svg {
+      width: 20px;
+      height: 20px;
+      fill: white;
+    }
+  </style>
 </head>
 
 <body>
+  <div class="gradient" id="gradient"></div>
 
-    <header>
-        <div class="logo">Dreamscape</div>
-        <div class="tagline">Where imagination meets real-world impact.</div>
-    </header>
+  <div class="logo">Clawlike</div>
 
-    <main>
-        <section>
-            <h2>About Us</h2>
-            <p>Dreamscape is a creative innovation studio that designs unique digital experiences and imaginative
-                solutions for forward-thinking clients. We combine creativity, technology, and bold strategy to build
-                projects that inspire curiosity and deliver meaningful impact.</p>
-            <p>Our mission is to push boundaries and bring unconventional ideas to life through thoughtful design and
-                playful experimentation.</p>
-        </section>
+  <div class="quote">Unleashing Creativity.</div>
 
-        <section>
-            <h2>What We Do</h2>
-            <p>We specialize in creative digital campaigns, interactive design, experimental storytelling, and immersive
-                web experiences. Our team collaborates with brands, artists, and visionaries to explore new ways of
-                engaging audiences and shaping the future of digital interaction.</p>
-        </section>
+  <div class="link-box">
+    <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" viewBox="0 0 24 24" width="512" height="512">
+      <path
+        d="M7.835,16.17c-.23-.23-.446-.482-.641-.748-.325-.446-.227-1.072,.22-1.397,.446-.325,1.071-.227,1.397,.219,.129,.178,.274,.349,.437,.511,.803,.803,1.87,1.245,3.005,1.245s2.203-.442,3.005-1.245l5.5-5.5c1.657-1.657,1.657-4.354,0-6.011s-4.354-1.657-6.011,0l-1.058,1.058c-.391,.391-1.023,.391-1.414,0s-.391-1.023,0-1.414l1.058-1.058c2.437-2.438,6.402-2.438,8.839,0,2.437,2.437,2.437,6.402,0,8.839l-5.5,5.5c-1.18,1.181-2.75,1.831-4.419,1.831s-3.239-.65-4.418-1.83Zm-1.582,7.83c1.67,0,3.239-.65,4.419-1.831l1.058-1.058c.391-.39,.391-1.023,0-1.414-.39-.391-1.023-.39-1.414,0l-1.059,1.058c-.803,.803-1.87,1.245-3.005,1.245s-2.202-.442-3.005-1.245-1.245-1.87-1.245-3.005,.442-2.203,1.245-3.005l5.5-5.5c.803-.803,1.87-1.245,3.005-1.245s2.203,.442,3.005,1.245c.16,.161,.306,.332,.436,.51,.324,.447,.949,.547,1.397,.221,.447-.325,.546-.95,.221-1.397-.19-.262-.405-.513-.639-.747-1.181-1.182-2.751-1.832-4.42-1.832s-3.239,.65-4.419,1.831L1.834,13.331C.653,14.511,.003,16.081,.003,17.75c0,1.669,.65,3.239,1.831,4.419,1.18,1.181,2.749,1.831,4.419,1.831Z" />
+    </svg>
+    <a href="https://discord.gg/pbuv5rgxae" target="_blank">Let's Get Creative</a>
+  </div>
 
-        <section>
-            <h2>Contact</h2>
-            <p>For inquiries, collaborations, or more information, please contact us at: <a
-                    href="mailto:sircharlieabello@gmail.com">sircharlieabello@gmail.com</a></p>
-        </section>
-    </main>
+  <div class="social-links">
+    <!-- X (Twitter) -->
+    <a href="https://x.com/ClawMakesThings" target="_blank" aria-label="X">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+        <path
+          d="M14.095479,10.316482L22.286354,1h-1.940718l-7.115352,8.087682L7.551414,1H1l8.589488,12.231093L1,23h1.940717l7.509372-8.542861L16.448587,23H23L14.095479,10.316482z M11.436522,13.338465l-0.871624-1.218704-6.924311-9.68815h2.981339l5.58978,7.82155l0.867949,1.218704l7.26506,10.166271h-2.981339L11.436522,13.338465z" />
+      </svg>
+    </a>
 
-    <footer>
-        &copy; 2024 Dreamscape. All rights reserved.
-    </footer>
+    <!-- YouTube -->
+    <a href="https://www.youtube.com/@ItsClawlike/" target="_blank" aria-label="YouTube">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path
+          d="M23.498 6.186a2.994 2.994 0 0 0-2.107-2.117C19.645 3.5 12 3.5 12 3.5s-7.645 0-9.391.569A2.994 2.994 0 0 0 .502 6.186 31.142 31.142 0 0 0 0 12a31.142 31.142 0 0 0 .502 5.814 2.994 2.994 0 0 0 2.107 2.117c1.746.569 9.391.569 9.391.569s7.645 0 9.391-.569a2.994 2.994 0 0 0 2.107-2.117A31.142 31.142 0 0 0 24 12a31.142 31.142 0 0 0-.502-5.814zM9.75 15.02V8.98l6.27 3.02-6.27 3.02z"
+          fill="white" />
+      </svg>
+    </a>
+  </div>
 
+  <script>
+    const gradient = document.getElementById('gradient');
+
+    document.addEventListener('mousemove', (e) => {
+      const x = e.clientX - gradient.offsetWidth / 2;
+      const y = e.clientY - gradient.offsetHeight / 2;
+      gradient.style.transform = `translate(${x}px, ${y}px)`;
+    });
+  </script>
 </body>
 
 </html>
-
