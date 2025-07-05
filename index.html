@@ -6,12 +6,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Clawlike</title>
   <style>
+    /* Reset */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
+    /* Body & Layout */
     body {
       height: 100vh;
       background: linear-gradient(135deg, #0a0a0a, #141414, #1a1a1a, #2a1b3d);
@@ -25,8 +27,10 @@
       text-align: center;
       position: relative;
       cursor: default;
+      user-select: none;
     }
 
+    /* Gradient following cursor */
     .gradient {
       position: fixed;
       top: 0;
@@ -40,29 +44,88 @@
       z-index: 0;
     }
 
+    /* Subtle drifting stars background */
+    .stars {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      background: url('https://www.transparenttextures.com/patterns/stardust.png');
+      opacity: 0.1;
+      animation: driftStars 60s linear infinite;
+      mix-blend-mode: screen;
+      z-index: 0;
+    }
+
+    @keyframes driftStars {
+      0% {
+        background-position: 0 0;
+      }
+
+      100% {
+        background-position: 1000px 1000px;
+      }
+    }
+
+    /* Logo */
     .logo {
       position: absolute;
       top: 20px;
       left: 20px;
       font-size: 1.5rem;
       font-weight: bold;
-      z-index: 2;
+      z-index: 10;
+      user-select: text;
     }
 
+    /* Quote with fade-in and typewriter */
     .quote {
+      font-family: Georgia, serif;
       font-size: 3rem;
       max-width: 80%;
       margin-bottom: 30px;
-      transition: transform 0.3s ease, color 0.3s ease;
-      cursor: pointer;
-      z-index: 2;
+      color: white;
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: 0.15em solid #a855f7;
+      animation:
+        fadeIn 2s ease forwards,
+        typewriter 4s steps(20) 0.5s forwards,
+        blinkCaret 0.75s step-end infinite;
+      cursor: default;
+      z-index: 10;
+      user-select: text;
     }
 
-    .quote:hover {
-      transform: scale(1.1);
-      color: #c084fc;
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
     }
 
+    @keyframes typewriter {
+      from {
+        width: 0;
+      }
+
+      to {
+        width: 15ch; /* Adjust for text length */
+      }
+    }
+
+    @keyframes blinkCaret {
+      50% {
+        border-color: transparent;
+      }
+    }
+
+    /* Link Box */
     .link-box {
       display: flex;
       align-items: center;
@@ -70,34 +133,71 @@
       background: rgba(255, 255, 255, 0.05);
       padding: 10px 15px;
       border-radius: 8px;
-      transition: background 0.3s ease;
+      transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
       justify-content: center;
-      z-index: 2;
+      z-index: 10;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      user-select: none;
     }
 
+    /* Pop on hover */
     .link-box:hover {
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.2);
+      transform: scale(1.08);
+      box-shadow: 0 0 20px rgba(168, 85, 247, 0.6), 0 0 30px rgba(192, 132, 252, 0.7);
+      transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
     }
 
+    /* Ripple effect container for clicks */
+    .ripple {
+      position: absolute;
+      border-radius: 50%;
+      background-color: rgba(168, 85, 247, 0.6);
+      transform: scale(0);
+      animation: ripple-effect 0.6s linear;
+      pointer-events: none;
+      z-index: 20;
+    }
+
+    @keyframes ripple-effect {
+      to {
+        transform: scale(4);
+        opacity: 0;
+      }
+    }
+
+    /* Link styles */
     .link-box a {
       color: white;
       text-decoration: none;
       font-size: 1rem;
+      transition: color 0.3s ease, transform 0.3s ease, text-shadow 0.3s ease;
+      user-select: text;
+    }
+
+    .link-box a:hover {
+      color: #a855f7;
+      transform: scale(1.1);
+      text-shadow: 0 0 8px #a855f7, 0 0 12px #c084fc;
     }
 
     .link-box svg {
       width: 20px;
       height: 20px;
       fill: white;
+      user-select: none;
     }
 
+    /* Social links */
     .social-links {
       position: absolute;
       bottom: 20px;
       left: 20px;
       display: flex;
       gap: 15px;
-      z-index: 2;
+      z-index: 10;
     }
 
     .social-links a {
@@ -108,48 +208,84 @@
       height: 40px;
       background: rgba(255, 255, 255, 0.05);
       border-radius: 8px;
-      transition: background 0.3s ease;
+      transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      user-select: none;
     }
 
     .social-links a:hover {
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(168, 85, 247, 0.2);
+      transform: scale(1.2);
+      box-shadow: 0 0 12px #a855f7, 0 0 20px #c084fc;
     }
 
     .social-links svg {
       width: 20px;
       height: 20px;
       fill: white;
+      user-select: none;
     }
+
+    /* Keyboard focus for accessibility */
+    a:focus,
+    .link-box:focus,
+    .social-links a:focus {
+      outline: 3px solid #a855f7;
+      outline-offset: 2px;
+      box-shadow: 0 0 8px #a855f7;
+    }
+
+    /* Footer */
+    footer {
+      position: fixed;
+      bottom: 5px;
+      right: 10px;
+      font-size: 0.75rem;
+      color: #777;
+      font-family: Arial, sans-serif;
+      user-select: none;
+      z-index: 10;
+    }
+
+    /* Loading spinner container */
+ 
   </style>
 </head>
 
 <body>
+  <!-- Loading spinner -->
+  <div id="loading">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- Background elements -->
   <div class="gradient" id="gradient"></div>
+  <div class="stars"></div>
 
-  <div class="logo">Clawlike</div>
+  <div class="logo" tabindex="0">Clawlike</div>
 
-  <div class="quote">Unleashing Creativity.</div>
+  <div class="quote" tabindex="0">Unleashing Creativity.</div>
 
-  <div class="link-box">
-    <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" viewBox="0 0 24 24" width="512" height="512">
+  <div class="link-box" tabindex="0" role="button" aria-label="Unleash Your Creativity Link">
+    <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" viewBox="0 0 24 24" width="512" height="512" aria-hidden="true">
       <path
         d="M7.835,16.17c-.23-.23-.446-.482-.641-.748-.325-.446-.227-1.072,.22-1.397,.446-.325,1.071-.227,1.397,.219,.129,.178,.274,.349,.437,.511,.803,.803,1.87,1.245,3.005,1.245s2.203-.442,3.005-1.245l5.5-5.5c1.657-1.657,1.657-4.354,0-6.011s-4.354-1.657-6.011,0l-1.058,1.058c-.391,.391-1.023,.391-1.414,0s-.391-1.023,0-1.414l1.058-1.058c2.437-2.438,6.402-2.438,8.839,0,2.437,2.437,2.437,6.402,0,8.839l-5.5,5.5c-1.18,1.181-2.75,1.831-4.419,1.831s-3.239-.65-4.418-1.83Zm-1.582,7.83c1.67,0,3.239-.65,4.419-1.831l1.058-1.058c.391-.39,.391-1.023,0-1.414-.39-.391-1.023-.39-1.414,0l-1.059,1.058c-.803,.803-1.87,1.245-3.005,1.245s-2.202-.442-3.005-1.245-1.245-1.87-1.245-3.005,.442-2.203,1.245-3.005l5.5-5.5c.803-.803,1.87-1.245,3.005-1.245s2.203,.442,3.005,1.245c.16,.161,.306,.332,.436,.51,.324,.447,.949,.547,1.397,.221,.447-.325,.546-.95,.221-1.397-.19-.262-.405-.513-.639-.747-1.181-1.182-2.751-1.832-4.42-1.832s-3.239,.65-4.419,1.831L1.834,13.331C.653,14.511,.003,16.081,.003,17.75c0,1.669,.65,3.239,1.831,4.419,1.18,1.181,2.749,1.831,4.419,1.831Z" />
     </svg>
-    <a href="https://discord.gg/pbuv5rgxae" target="_blank">Let's Get Creative</a>
+    <a href="https://discord.gg/4rvYX9waVG" target="_blank" rel="noopener noreferrer">Let's Get Creative</a>
   </div>
 
   <div class="social-links">
     <!-- X (Twitter) -->
-    <a href="https://x.com/ClawMakesThings" target="_blank" aria-label="X">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+    <a href="https://x.com/ClawMakesThings" target="_blank" aria-label="X" rel="noopener noreferrer" tabindex="0">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
         <path
           d="M14.095479,10.316482L22.286354,1h-1.940718l-7.115352,8.087682L7.551414,1H1l8.589488,12.231093L1,23h1.940717l7.509372-8.542861L16.448587,23H23L14.095479,10.316482z M11.436522,13.338465l-0.871624-1.218704-6.924311-9.68815h2.981339l5.58978,7.82155l0.867949,1.218704l7.26506,10.166271h-2.981339L11.436522,13.338465z" />
       </svg>
     </a>
 
     <!-- YouTube -->
-    <a href="https://www.youtube.com/@ItsClawlike/" target="_blank" aria-label="YouTube">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <a href="https://www.youtube.com/@ItsClawlike/" target="_blank" aria-label="YouTube" rel="noopener noreferrer" tabindex="0">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
         <path
           d="M23.498 6.186a2.994 2.994 0 0 0-2.107-2.117C19.645 3.5 12 3.5 12 3.5s-7.645 0-9.391.569A2.994 2.994 0 0 0 .502 6.186 31.142 31.142 0 0 0 0 12a31.142 31.142 0 0 0 .502 5.814 2.994 2.994 0 0 0 2.107 2.117c1.746.569 9.391.569 9.391.569s7.645 0 9.391-.569a2.994 2.994 0 0 0 2.107-2.117A31.142 31.142 0 0 0 24 12a31.142 31.142 0 0 0-.502-5.814zM9.75 15.02V8.98l6.27 3.02-6.27 3.02z"
           fill="white" />
@@ -157,15 +293,39 @@
     </a>
   </div>
 
-  <script>
-    const gradient = document.getElementById('gradient');
+  <footer>Clawlike © 2025</footer>
 
+  <script>
+    // Remove loading spinner once page loads
+    window.addEventListener('load', () => {
+      const loading = document.getElementById('loading');
+      if (loading) {
+        loading.style.opacity = '0';
+        setTimeout(() => loading.remove(), 500);
+      }
+    });
+
+    // Gradient follow cursor
+    const gradient = document.getElementById('gradient');
     document.addEventListener('mousemove', (e) => {
       const x = e.clientX - gradient.offsetWidth / 2;
       const y = e.clientY - gradient.offsetHeight / 2;
       gradient.style.transform = `translate(${x}px, ${y}px)`;
     });
-  </script>
+
+    // Ripple effect on .link-box click
+    const linkBox = document.querySelector('.link-box');
+    linkBox.addEventListener('click', (e) => {
+      const rect = linkBox.getBoundingClientRect();
+      const ripple = document.createElement('span');
+      ripple.classList.add('ripple');
+      const size = Math.max(rect.width, rect.height);
+      ripple.style.width = ripple.style.height = size + 'px';
+      ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+      ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+      linkBox.appendChild(ripple);
+      ripple.addEventListener('animationend', () => ripple.remove());
+    });>
 </body>
 
 </html>
