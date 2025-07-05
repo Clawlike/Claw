@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minimal Gradient Quote</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            color: white;
+            position: relative;
+        }
+
+        .logo {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .quote {
+            position: absolute;
+            top: 45%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2rem;
+            text-align: center;
+            max-width: 80%;
+            transition: transform 0.3s ease, color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .quote:hover {
+            transform: translate(-50%, -50%) scale(1.1);
+            color: #c084fc;
+        }
+
+        .link-box {
+            position: absolute;
+            top: 55%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 10px 15px;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
+
+        .link-box:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .link-box a {
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+
+        .link-box svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+        }
+
+        .gradient {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(128, 0, 255, 0.6), transparent 70%);
+            pointer-events: none;
+            filter: blur(40px) contrast(130%);
+            transition: transform 0.1s linear;
+        }
+
+        /* Noise overlay */
+        .noise {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
+            opacity: 0.12;
+            pointer-events: none;
+            mix-blend-mode: overlay;
+        }
+
+        /* Additional grain overlay for layered texture */
+        .grain {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/pw-maze-white.png');
+            opacity: 0.05;
+            pointer-events: none;
+            mix-blend-mode: overlay;
+        }
+
+        /* Star field overlay */
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/stardust.png');
+            opacity: 0.15;
+            pointer-events: none;
+            mix-blend-mode: screen;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="logo">Dreamscape</div>
+    <div class="quote">These jobs may not exist, but your creativity does.</div>
+    <div class="link-box">
+    <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="512" height="512"><path d="M7.835,16.17c-.23-.23-.446-.482-.641-.748-.325-.446-.227-1.072,.22-1.397,.446-.325,1.071-.227,1.397,.219,.129,.178,.274,.349,.437,.511,.803,.803,1.87,1.245,3.005,1.245s2.203-.442,3.005-1.245l5.5-5.5c1.657-1.657,1.657-4.354,0-6.011s-4.354-1.657-6.011,0l-1.058,1.058c-.391,.391-1.023,.391-1.414,0s-.391-1.023,0-1.414l1.058-1.058c2.437-2.438,6.402-2.438,8.839,0,2.437,2.437,2.437,6.402,0,8.839l-5.5,5.5c-1.18,1.181-2.75,1.831-4.419,1.831s-3.239-.65-4.418-1.83Zm-1.582,7.83c1.67,0,3.239-.65,4.419-1.831l1.058-1.058c.391-.39,.391-1.023,0-1.414-.39-.391-1.023-.39-1.414,0l-1.059,1.058c-.803,.803-1.87,1.245-3.005,1.245s-2.202-.442-3.005-1.245-1.245-1.87-1.245-3.005,.442-2.203,1.245-3.005l5.5-5.5c.803-.803,1.87-1.245,3.005-1.245s2.203,.442,3.005,1.245c.16,.161,.306,.332,.436,.51,.324,.447,.949,.547,1.397,.221,.447-.325,.546-.95,.221-1.397-.19-.262-.405-.513-.639-.747-1.181-1.182-2.751-1.832-4.42-1.832s-3.239,.65-4.419,1.831L1.834,13.331C.653,14.511,.003,16.081,.003,17.75c0,1.669,.65,3.239,1.831,4.419,1.18,1.181,2.749,1.831,4.419,1.831Z"/></svg>
+
+</svg>
+        <a href="https://www.minecraft.net/en-us" target="_blank">Unleash Your Creativity</a>
+    </div>
+    <div class="gradient" id="gradient"></div>
+    <div class="noise"></div>
+    <div class="grain"></div>
+    <div class="stars"></div>
+
+    <script>
+        const gradient = document.getElementById('gradient');
+
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX - gradient.offsetWidth / 2;
+            const y = e.clientY - gradient.offsetHeight / 2;
+            gradient.style.transform = `translate(${x}px, ${y}px)`;
+        });
+    </script>
+</body>
+
+</html>
